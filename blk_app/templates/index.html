@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="continer">
+            {% if messages %}
+            <div>
+                {% for msg in messages %}
+                    <p>{{msg}}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="divider">
+            <h1>Register</h1>
+            <form action="/process_register" method="POST">
+                {% csrf_token %}
+                <label for="">first name</label>
+                <input type="text" name="first_name">
+                <label for="">last name</label>
+                <input type="text" name="last_name">
+                <label for="">email</label>
+                <input type="email" name="email">
+                <label for="">password</label>
+                <input type="password" name="password">
+                <label for="">confirm password</label>
+                <input type="confirm_password" name="confirm_password">
+                <button class="btn btn1" type="submit">Register</button>
+
+            </form>
+        </div>
+        
+
+        <div class="divider">
+            <h1>Login</h1>
+            <form action="/process_login" method="POST">
+                {% csrf_token %}
+                <label for="">email</label>
+                <input type="email" name="email">
+                <label for="">password</label>
+                <input type="password" name="password">
+                <button class="btn btn1" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

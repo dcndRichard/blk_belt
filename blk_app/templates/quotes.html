@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
+    <title>Quote</title>
+</head>
+
+<body>
+    <div class="continer">
+        <header>
+            <h1>Hello {{user.first_name}}</h1>
+            <a href="/logout">Logout</a>
+            <a href="/myaccount/{{request.session.uid}}">Edit Account</a>
+            <!-- <a href="/wishes/new">Make A Wish</a> -->
+        </header>
+        {% if messages %}
+            <div>
+                {% for msg in messages %}
+                    <p>{{msg}}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="divider">
+            {% for quote in quotes %}
+            <div class="quotebox">
+                <p>{{quote.quote}}</p>
+                <p>Posted by:<a href="user/{{quote.users_who_posted.id}}">{{quote.users_who_posted.first_name}}</a></p>
+                <p>{{quote.users_who_liked.count}} People liked this quote</p>
+                <a class="btn btn2" href="/process_quote_like/{{quote.id}}">Like</a>
+
+                {% if quote.users_who_posted.id == request.session.uid %}
+                    <a href="/quote/delete/{{quote.id}}">Delete</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="divider">
+            <h2>Add a Quote</h2>
+            <form action="/process_quote_new" method="POST">
+                {% csrf_token %}
+                <label for="">Author:</label>
+                <input type="text" name="author">
+                <label for="">Quote:</label>
+                <textarea name="quote" id="quote" cols="30" rows="10"></textarea>
+
+                <button class="btn btn1" type="submit">Add Quote</button>
+        </div>
+    </div>
+</body>
+
+</html>

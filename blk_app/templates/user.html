@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
+    <title>Edit Acct</title>
+</head>
+
+<body>
+    <div class="continer">
+        <header>
+            <h1>Hello {{user.first_name}}</h1>
+            <h2>Edit your acct</h2>
+            <a href="/logout">Logout</a>
+            <a href="/quotes">Back</a>
+            <!-- <a href="/wishes/new">Make A Wish</a> -->
+        </header>
+        <h2>Quotes</h2>
+        {% for quote in user_posted_quotes%}
+            <div class="quotebox">
+                <p>{{quote.author}}</p>
+                <p>{{quote.quote}}</p>
+            </div>
+        {% endfor %}
+
+
+
+    </div>
+</body>
+
+</html>
